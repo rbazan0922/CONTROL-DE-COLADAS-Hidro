@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal - Sistema de Control</title>
+    <link rel="stylesheet" href="../css/menu.css"> 
+</head>
+<body>
+    <div class="main-menu-wrapper">
+        <div class="card app-header">
+            <div class="header-left-menu">
+                <div>
+                    <div class="app-title">Sistema de Control de Coladas</div>
+                    <div class="app-subtitle">Usuario: supervisor</div>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="window.location.href='../index.html'">
+                Cerrar Sesión
+            </button>
+        </div>
+
+        <div class="menu-grid">
+            <!-- CAMBIO AQUÍ: ahora va a menuDocs.html -->
+            <a href="menuDocs.html" class="card menu-item">
+                <div class="menu-icon icon-add">
+                    <span class="menu-icon-text">+</span> 
+                </div>
+                <div class="menu-label">Agregar Colada</div>
+                <div class="menu-description">Crear nuevo registro de colada y proceso.</div>
+            </a>
+
+            <a href="#" class="card menu-item">
+                <div class="menu-icon icon-search">
+                    <span class="menu-icon-text">Q</span> 
+                </div>
+                <div class="menu-label">Buscar Registros</div>
+                <div class="menu-description">Consultar y visualizar coladas existentes.</div>
+            </a>
+
+            <a href="#" class="card menu-item disabled">
+                <div class="menu-icon icon-delete">
+                    <span class="menu-icon-text">X</span> 
+                </div>
+                <div class="menu-label">Eliminar Colada</div>
+                <div class="menu-description">Borrar registro de colada (Requiere permisos).</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

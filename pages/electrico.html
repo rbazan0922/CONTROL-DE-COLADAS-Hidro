@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL DE COLADAS H. ELÉCTRICO</title>
+    <link rel="stylesheet" href="../css/electrico.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ENCABEZADO -->
+        <div class="card app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../img/Hidrostal_Logo.png" alt="Hidrostal Logo">
+                    </div>
+                    <h1 class="title">CONTROL DE COLADAS H. ELÉCTRICO</h1>
+                </div>
+                <div class="header-right-buttons">
+                    <div class="header-fields-group">
+                        <div class="header-field">
+                            <label>Código:</label>
+                            <input type="text" class="input-codigo">
+                        </div>
+                        <div class="header-field">
+                            <label>Versión:</label>
+                            <input type="text" class="input-version">
+                        </div>
+                        <div class="header-field">
+                            <label>Fecha:</label>
+                            <input type="date" class="input-fecha">
+                        </div>
+                    </div>
+                    <div class="header-buttons-group">
+                        <button class="btn-menu">Guardar</button>
+                        <a href="menuDocs.html" class="btn-menu">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS GENERALES -->
+        <div class="card">
+            <h2 class="section-title">DATOS GENERALES</h2>
+            <div class="grid grid-12">
+                <div class="col-4 field"><label>Colada</label><input type="text"></div>
+                <div class="col-4 field"><label>Metal</label><input type="text"></div>
+                <div class="col-4 field"><label>T. Acumulada</label><input type="text"></div>
+                <div class="col-4 field"><label>KW Inicio</label><input type="number"></div>
+                <div class="col-4 field"><label>KW Fin</label><input type="number"></div>
+                <div class="col-4 field"><label>Temperatura Sangrado</label><input type="number"></div>
+                <div class="col-6 field"><label>Nº WO</label><input type="text"></div>
+                <div class="col-6 field"><label>Nº Artículo</label><input type="text"></div>
+            </div>
+        </div>
+
+        <!-- COMPONENTES + ADICIONES -->
+        <div class="grid grid-12">
+            <div class="col-7 card">
+                <h2 class="section-title">COMPONENTES DE LA CARGA</h2>
+                <div class="table-header table-4-cols">
+                    <span>Componentes</span>
+                    <span style="grid-column: span 3;">Horno Kg</span>
+                </div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">LINGOTE</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">M.LIQUIDO</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">F.DULCE A-B</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">F.DULCE LIVIANO</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">CHATARRA INOX</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">CHATARRA INOX 18-8</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">CHATARRA INOX CROMO</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">CHATARRA INOX 316L</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">RETORNO</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols">
+                    <div class="table-cell-label total-label">CARGA FRIA</div>
+                    <div class="table-cell"><input type="number"></div>
+                    <div class="kw-consumo">KW CONSUMO</div>
+                    <div class="table-cell"><input type="number"></div>
+                </div>
+            </div>
+
+            <div class="col-5 card">
+                <h2 class="section-title">ADICIONES</h2>
+                <div class="table-header table-4-cols">
+                    <span>Adiciones</span>
+                    <span style="grid-column: span 3;">Horno Kg</span>
+                </div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Si</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Mn A/C</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Mn-Electrolítico</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Cr A/C</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Cr B/C</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Cr N</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Cr UB/C</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Ni-Electrolítico</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Nb</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Carburo de Si</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Fe-Mo</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Cu</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+                <div class="table-row table-4-cols"><div class="table-cell-label">Grafito</div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div><div class="table-cell"><input type="number"></div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">ANÁLISIS QUÍMICO</h2>
+            <div class="analisis-container">
+                <div class="analisis-main table-wrapper">
+                    <div class="table-header analisis-14-cols">
+                        <span>METAL</span>
+                        <span>C</span>
+                        <span>Si</span>
+                        <span>Mn</span>
+                        <span>P</span>
+                        <span>S</span>
+                        <span>Cr</span>
+                        <span>Ni</span>
+                        <span>Mo</span>
+                        <span>Mg</span>
+                        <span>Nb</span>
+                        <span>N</span>
+                        <span>Cu</span>
+                        <span>Al</span>
+                    </div>
+                    <div class="table-row analisis-14-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div></div>
+                    <div class="table-row analisis-14-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div></div>
+                    <div class="table-row analisis-14-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div></div>
+                    <div class="table-row analisis-14-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div></div>
+                    <div class="table-row analisis-14-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div><div class="table-cell"><input type="number" step="0.001"></div></div>
+                </div>
+                <div class="firma-column">
+                    <div class="table-header" style="margin-bottom: 4px;">
+                        <span>Superv(V°B°)</span>
+                    </div>
+                    <div class="analisis-firma-container">
+                        <label for="firma-supervisor-file" class="firma-box firma-box-click">
+                            <span class="firma-preview-analisis">
+                                <span>Firma</span>
+                                <span>Supervisor</span>
+                                <span class="link">(Subir imagen)</span>
+                            </span>
+                            <input type="file" id="firma-supervisor-file" accept="image/*" class="file-hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">TEMPERATURAS</h2>
+            <div class="grid grid-12">
+                <div class="col-9">
+                    <div class="table-wrapper"> 
+                        <div class="table-header temp-7-cols">
+                            <span>Metal</span>
+                            <span>INO</span> 
+                            <span>NOD</span>
+                            <span>CaSi</span>
+                            <span>Al</span>
+                            <span>Se</span>
+                            <span style="text-align: left; padding-left: 12px;">Observaciones</span> 
+                        </div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-7-cols"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="tiempos-title">TIEMPOS</div>
+                    <div class="tiempos-table">
+                        <div class="table-row"><div class="table-cell-label">FUNSION INICIO</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">FUNSION FINAL</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">SANGR.INICIO</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">SANGR.FINAL</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">LINGOTEO (Kg)</div><div class="table-cell"><input type="text"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">OBSERVACIONES</h2>
+            <textarea rows="4" placeholder="Escriba aquí cualquier observación relevante..."></textarea>
+        </div>
+
+        <div class="card">
+            <div class="grid grid-12">
+                <div class="col-6 field">
+                    <label for="firma-hornero-file">Firma del HORNERO</label>
+                    <label for="firma-hornero-file" class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-hornero-file" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+                <div class="col-6 field">
+                    <label for="firma-supervisor-pie-file">Firma del SUPERVISOR</label>
+                    <label for="firma-supervisor-pie-file" class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-supervisor-pie-file" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

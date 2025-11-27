@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL DE COLADAS H. BASCULANTE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================= */
+        /* basculante.css – Estilos generales y ajustes de tablas */
+        /* ============================================= */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --color-primary: #1F4E6C;
+            --color-light-gray: #E6EBEF;
+            --color-border: #C7CCD1;
+            --color-text-dark: #2A2A2A;
+        }
+
+        body {
+            font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-light-gray);
+            font-size: 12px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 8px;
+        }
+
+        /* ============================================= */
+        /* HEADER */
+        /* ============================================= */
+        .app-header { margin-bottom: 16px; }
+        .header-content { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+        .header-left { display: flex; align-items: center; gap: 10px; }
+        .title { color: var(--color-primary); font-size: 16px; font-weight: 600; }
+        .logo { width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; padding: 4px; }
+        .logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .header-right-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+        .header-fields-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+        .header-buttons-group { display: flex; gap: 10px; }
+
+        .input-codigo { width: 90px; }
+        .input-version { width: 55px; }
+        .input-fecha { width: 110px; }
+
+        .btn-menu {
+            padding: 8px 12px;
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-menu:hover { background-color: #163C52; }
+
+        /* ============================================= */
+        /* ELEMENTOS GENERALES */
+        /* ============================================= */
+        .card { background: white; box-shadow: 0 2px 6px rgba(31,78,108,0.2); padding: 12px; margin-bottom: 8px; border-radius: 4px; }
+        .section-title { color: var(--color-primary); font-size: 13px; font-weight: 700; margin-bottom: 12px; padding-bottom: 4px; border-bottom: 1px solid var(--color-light-gray); }
+
+        .field { display: flex; flex-direction: column; margin-bottom: 8px; }
+        .field label, .header-field label { color: var(--color-text-dark); font-size: 10px; margin-bottom: 3px; font-weight: 500; }
+        .field input, .header-field input, textarea { height: 28px; border: 1px solid var(--color-border); padding: 2px 8px; font-size: 12px; background: #FAFBFC; border-radius: 3px; }
+        textarea { height: 70px; padding: 8px; }
+
+        .grid { display: grid; gap: 12px; align-items: flex-start; }
+        .grid-12 { grid-template-columns: repeat(12, 1fr); }
+        .col-1 { grid-column: span 1; } .col-2 { grid-column: span 2; } .col-3 { grid-column: span 3; }
+        .col-4 { grid-column: span 4; } .col-5 { grid-column: span 5; } .col-6 { grid-column: span 6; }
+        .col-7 { grid-column: span 7; } .col-8 { grid-column: span 8; } .col-9 { grid-column: span 9; }
+        .col-10 { grid-column: span 10; } .col-11 { grid-column: span 11; } .col-12 { grid-column: span 12; }
+
+        /* ============================================= */
+        /* TABLAS GENERALES */
+        /* ============================================= */
+        .table-wrapper { overflow-x: auto; width: 100%; }
+        .table-header, .table-row, .table-subheader { display: grid; font-size: 10px; font-weight: 500; align-items: center; }
+        .table-header { background-color: var(--color-primary); color: white; padding: 4px 8px; margin-bottom: 2px; text-align: center; }
+        .table-row { border: 1px solid var(--color-border); margin-bottom: -1px; background-color: white; }
+        .table-cell, .table-cell-label { padding: 4px 6px; border-right: 1px solid var(--color-light-gray); display: flex; align-items: center; }
+        .table-cell:last-child, .table-cell-label:last-child { border-right: none; }
+        .table-cell input { height: 20px; width: 100%; padding: 0 4px; font-size: 10px; border:none; background:transparent; }
+        .table-cell-label { background-color: #F8F8F8; font-weight: 600; color: var(--color-text-dark); text-align: left; white-space: nowrap; }
+        .total-label { background-color: #DBE5EF; color: var(--color-primary); font-weight:700; text-align: left; }
+
+        /* ============================================= */
+        /* TABLAS ESPECÍFICAS DEL BASCULANTE (AJUSTADO a 4 columnas) */
+        /* ============================================= */
+
+        /* 1. COMPONENTES DE LA CARGA (4 columnas: 2 Inputs Comp + 2 Inputs Horno) */
+        .carga-main-header,
+        .carga-row,
+        .carga-total {
+            /* 4 columnas iguales (25% cada una) */
+            grid-template-columns: repeat(4, 1fr);
+            min-width: 400px;
+        }
+
+        /* Encabezado principal combinado */
+        .carga-main-header {
+            border: 1px solid var(--color-border);
+            margin-bottom: -1px;
+        }
+        .carga-main-header > .header-cell:first-child { 
+            grid-column: 1 / 3; /* COMPONENTES (2 columnas) */
+            border-right: 1px solid white; 
+        } 
+        .carga-main-header > .header-cell:nth-child(2) { 
+            grid-column: 3 / 5; /* HORNO (2 columnas) */
+        } 
+
+        /* Fila CARGA FRÍA - Label abarca las 2 primeras columnas */
+        .carga-total {
+            border-top: 3px double var(--color-primary) !important;
+        }
+
+        /* 2. ADICIONES (4 columnas) */
+        .adiciones-main-header,
+        .adiciones-subheader,
+        .adiciones-row {
+            grid-template-columns: 30% 40% 15% 15%; /* ANTES: 4 columnas: CÓDIGO | NOMBRE | Kg | % */
+            grid-template-columns: repeat(4, 1fr); /* Simplificado a 4 columnas iguales para las filas de datos */
+            min-width: 320px;
+        }
+
+        .adiciones-main-header {
+            border: 1px solid var(--color-border);
+            margin-bottom: -1px;
+        }
+        .adiciones-main-header > .header-cell:first-child { grid-column: 1 / 3; border-right: 1px solid white; } /* ADICIONES (2 cols) */
+        .adiciones-main-header > .header-cell:nth-child(2) { grid-column: 3 / 5; } /* CALLANA (2 cols) */
+
+        .adiciones-subheader {
+            background-color: #f0f5f9;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            border-top: none;
+        }
+
+        /* 3. ANÁLISIS QUÍMICO (13 columnas) */
+        .analisis-main { width: 100%; }
+        .analisis-main .table-header,
+        .analisis-main .table-row {
+            /* 100px para METAL, 12 columnas (1fr) para los elementos */
+            grid-template-columns: 100px repeat(12, 1fr);
+            min-width: 800px;
+        }
+        .analisis-container { display: flex; gap: 0; }
+        .firma-column { width: 90px; border: 1px solid var(--color-border); background-color: white; }
+        .firma-header {
+            background: var(--color-primary);
+            color: white;
+            font-size: 9px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 25px;
+            text-align: center;
+            line-height: 1;
+            padding: 4px 0;
+        }
+        .firma-box {
+            display: block;
+            height: 48px;
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            cursor: pointer;
+            background-color: #F8F8F8;
+        }
+        .firma-box:last-child { border-bottom: none; }
+        .file-hidden { display: none; }
+        .analisis-row.empty { height: 50px; }
+
+        /* 4. TEMPERATURA + TIEMPOS */
+        .temp-header,
+        .temp-row {
+            grid-template-columns: 18% 18% 20% 44%; /* 4 columnas */
+            min-width: 400px;
+        }
+        .tiempos-title {
+            color: var(--color-primary);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 4px;
+            text-align: center;
+            border-bottom: 1px solid var(--color-light-gray);
+        }
+        .tiempos-table .table-row {
+            grid-template-columns: 60% 40%;
+            border: 1px solid var(--color-border);
+            margin-bottom: -1px;
+        }
+
+        /* 5. FIRMAS FINALES */
+        .firma-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background-color: #F8F8F8;
+            cursor: pointer;
+            margin-top: 5px;
+            position: relative;
+        }
+        .firma-area span {
+            color: #999;
+            font-style: italic;
+            font-size: 11px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-12 > div { grid-column: span 12; }
+            .header-content { flex-direction: column; align-items: stretch; }
+            .header-right-buttons { align-items: stretch; }
+            .header-fields-group { justify-content: space-between; }
+            .analisis-container { flex-direction: column; }
+            .firma-column { width: 100%; height: auto; display: flex; flex-direction: row; }
+            .firma-header { writing-mode: horizontal-tb; height: 30px; width: 80px; }
+            .firma-box { border-right: 1px solid var(--color-border); border-bottom: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ENCABEZADO -->
+        <div class="card app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <!-- Placeholder para el logo -->
+                        <img src="https://placehold.co/70x70/1F4E6C/ffffff?text=LOGO" alt="Hidrostal Logo">
+                    </div>
+                    <h1 class="title">CONTROL DE COLADAS H. BASCULANTE</h1>
+                </div>
+                <div class="header-right-buttons">
+                    <div class="header-fields-group">
+                        <div class="header-field"><label>CÓDIGO:</label><input type="text" class="input-codigo" value="FHO-FO-001" readonly></div>
+                        <div class="header-field"><label>VERSIÓN:</label><input type="text" class="input-version" value="05" readonly></div>
+                        <div class="header-field"><label>FECHA:</label><input type="date" class="input-fecha"></div>
+                    </div>
+                    <div class="header-buttons-group">
+                        <button class="btn-menu">Guardar</button>
+                        <a href="#" class="btn-menu">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS GENERALES -->
+        <div class="card">
+            <h2 class="section-title">DATOS GENERALES</h2>
+            <div class="grid grid-12">
+                <div class="col-3 field"><label>Colada</label><input type="text"></div>
+                <div class="col-3 field"><label>Metal</label><input type="text"></div>
+                <div class="col-3 field"><label>Arranque</label><input type="text"></div>
+                <div class="col-3 field"><label>Temperatura Sangrado</label><input type="number"></div>
+                <div class="col-6 field"><label>Nº WO</label><input type="text"></div>
+                <div class="col-6 field"><label>Nº Artículo</label><input type="text"></div>
+            </div>
+        </div>
+
+        <!-- 1. COMPONENTES DE LA CARGA + ADICIONES -->
+        <div class="grid grid-12">
+
+            <!-- COMPONENTES DE LA CARGA -->
+            <div class="col-7 card">
+                <h2 class="section-title">1. COMPONENTES DE LA CARGA</h2>
+                <div class="table-wrapper">
+
+                    <!-- Encabezado principal (2 cols COMPONENTES + 2 cols HORNO) -->
+                    <div class="table-header carga-main-header">
+                        <div class="header-cell">COMPONENTES</div>
+                        <div class="header-cell">HORNO</div>
+                    </div>
+
+                    <!-- Filas (7 Filas de Componentes - 4 Inputs por fila para simetría) -->
+                    <!-- Fila 1 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 2 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 3 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 4 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 5 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 6 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+                    <!-- Fila 7 -->
+                    <div class="table-row carga-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.1"></div>
+                        <div class="table-cell"><input type="number" step="0.01"></div>
+                    </div>
+
+                    <!-- CARGA FRÍA - Label abarca Col 1 y Col 2, dejando 2 inputs a la derecha para Horno -->
+                    <div class="table-row carga-total">
+                        <!-- La etiqueta CARGA FRÍA ocupa las primeras dos celdas (Col 1 y 2) -->
+                        <div class="table-cell-label total-label" style="padding-left: 12px; grid-column: 1 / span 2;">CARGA FRÍA</div>
+                        
+                        <!-- Columna 3: Total Kg (readonly) -->
+                        <div class="table-cell"><input type="number" readonly style="font-weight:700;"></div>
+                        
+                        <!-- Columna 4: Total % (readonly) -->
+                        <div class="table-cell"><input type="number" readonly></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADICIONES (8 filas) -->
+            <div class="col-5 card">
+                <h2 class="section-title">ADICIONES</h2>
+                <div class="table-wrapper">
+
+                    <!-- Encabezado principal -->
+                    <div class="table-header adiciones-main-header">
+                        <div class="header-cell">ADICIONES</div>
+                        <div class="header-cell">CALLANA</div>
+                    </div>
+
+                    <!-- Sub-encabezado ELIMINADO según la solicitud: CÓDIGO | NOMBRE | Kg | % -->
+                    
+                    <!-- Filas (Valores de input vacíos) -->
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                    <div class="table-row adiciones-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="number" step="0.1"></div><div class="table-cell"><input type="number" step="0.01"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.0 ANÁLISIS QUÍMICO (Inputs vacíos) -->
+        <div class="card">
+            <h2 class="section-title">2.0 ANÁLISIS QUÍMICO</h2>
+            <div class="analisis-container">
+                <div class="analisis-main table-wrapper">
+                    <!-- 13 Columnas: METAL + 12 elementos -->
+                    <div class="table-header analisis-header">
+                        <span>METAL</span><span>Si</span><span>Zn</span><span>Fe</span><span>Pb</span><span>Sn</span><span>Mg</span><span>Al</span><span>Bi</span><span>P</span><span>Mn</span><span>S</span><span>Cu</span>
+                    </div>
+                    <div class="table-row analisis-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                    </div>
+                    <div class="table-row analisis-row">
+                        <div class="table-cell"><input type="text"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                        <div class="table-cell"><input type="number" step="0.001"></div>
+                    </div>
+                    <!-- Filas vacías para completar el espacio de la firma -->
+                    <div class="table-row analisis-row empty"><div class="table-cell" style="grid-column: 1 / span 13;"></div></div>
+                    <div class="table-row analisis-row empty"><div class="table-cell" style="grid-column: 1 / span 13;"></div></div>
+                </div>
+
+                <!-- Columna de Firma SUPERV (V°B°) -->
+                <div class="firma-column">
+                    <div class="firma-header">SUPERV<br>(V°B°)</div>
+                    <label for="f1" class="firma-box"><input type="file" id="f1" class="file-hidden" accept="image/*"></label>
+                    <label for="f2" class="firma-box"><input type="file" id="f2" class="file-hidden" accept="image/*"></label>
+                    <label for="f3" class="firma-box"><input type="file" id="f3" class="file-hidden" accept="image/*"></label>
+                    <label for="f4" class="firma-box"><input type="file" id="f4" class="file-hidden" accept="image/*"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. TEMPERATURA + TIEMPOS (Inputs vacíos) -->
+        <div class="card">
+            <h2 class="section-title">3. TEMPERATURA</h2>
+            <div class="grid grid-12">
+                <div class="col-9">
+                    <div class="table-wrapper">
+                        <div class="table-header temp-header">
+                            <span>HORA</span><span>TEMP</span><span>Nº PIEZAS</span><span>DESCRIPCIÓN</span>
+                        </div>
+                        <div class="table-row temp-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row temp-row"><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div><div class="table-cell"><input type="text"></div></div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="tiempos-title">TIEMPOS</div>
+                    <div class="tiempos-table">
+                        <div class="table-row"><div class="table-cell-label">FUSIÓN INICIO</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">FUSIÓN FINAL</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">SANGGR. INICIO</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">SANGGR. FINAL</div><div class="table-cell"><input type="text"></div></div>
+                        <div class="table-row"><div class="table-cell-label">LINGOTEO (Kg)</div><div class="table-cell"><input type="text"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OBSERVACIONES Y FIRMAS -->
+        <div class="card">
+            <h2 class="section-title">4.- OBSERVACIONES:</h2>
+            <textarea rows="6"></textarea>
+        </div>
+
+        <div class="card">
+            <div class="grid grid-12">
+                <div class="col-6 field">
+                    <label>Firma del HORNERO</label>
+                    <label for="firma-hornero" class="firma-area firma-box-click"><span>Área de firma</span><input type="file" id="firma-hornero" class="file-hidden" accept="image/*"></label>
+                </div>
+                <div class="col-6 field">
+                    <label>Firma del SUPERVISOR</label>
+                    <label for="firma-supervisor" class="firma-area firma-box-click"><span>Área de firma</span><input type="file" id="firma-supervisor" class="file-hidden" accept="image/*"></label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

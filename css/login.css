@@ -1,0 +1,124 @@
+/* ------------------------------------- */
+/* Estilos Globales (Base) */
+/* ------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Mismo fondo gris claro */
+    background-color: #E6EBEF; 
+    font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    overflow-x: hidden; 
+    
+    /* Centrado completo del formulario */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+}
+
+/* ------------------------------------- */
+/* Estilos de la Tarjeta (Card) */
+/* ------------------------------------- */
+.card {
+    background: white;
+    /* Sombra corporativa azul */
+    box-shadow: 0 2px 6px rgba(31, 78, 108, 0.2);
+    padding: 30px; /* Padding ajustado para darle más cuerpo */
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px; /* Ancho máximo para el formulario */
+}
+
+/* ------------------------------------- */
+/* Encabezado del Login */
+/* ------------------------------------- */
+.login-header {
+    text-align: center;
+    margin-bottom: 25px; /* Más espacio */
+}
+
+.title {
+    color: #1F4E6C; /* Color azul oscuro corporativo */
+    font-size: 20px; /* Título un poco más grande */
+    font-weight: 600;
+    margin: 8px 0 0;
+}
+
+.logo-login {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; 
+}
+
+.logo-login img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ------------------------------------- */
+/* Estilos de Campos de Formulario */
+/* ------------------------------------- */
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.field label {
+    color: #2A2A2A;
+    font-size: 12px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.field input {
+    height: 42px; /* Altura mayor para mejor interacción táctil */
+    border: 1px solid #C7CCD1;
+    padding: 6px 15px;
+    font-size: 15px;
+    background: #FAFBFC;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.field input:focus {
+    border-color: #1F4E6C;
+    box-shadow: 0 0 0 2px rgba(31, 78, 108, 0.2);
+    outline: none;
+    background: white;
+}
+
+/* ------------------------------------- */
+/* Botón de Ingreso */
+/* ------------------------------------- */
+.btn-login {
+    width: 100%;
+    padding: 14px; /* Más padding para que sea más grande */
+    background-color: #1F4E6C; /* Azul oscuro corporativo */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    margin-top: 20px;
+}
+
+.btn-login:hover {
+    background-color: #163C52;
+}
+
+.btn-login:active {
+    transform: translateY(1px);
+}
