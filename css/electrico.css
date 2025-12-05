@@ -1,0 +1,353 @@
+/* ============================================= */
+/* electrico.css – Todo el estilo del formulario eléctrico */
+/* Incluye el nuevo header alineado perfectamente */
+/* ============================================= */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --color-primary: #1F4E6C;
+    --color-light-gray: #E6EBEF;
+    --color-border: #C7CCD1;
+    --color-text-dark: #2A2A2A;
+}
+
+body {
+    font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--color-light-gray);
+    font-size: 18px; /* aumentado para mejor lectura */
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Aumentar tamaño de inputs y botones globalmente */
+input, textarea, select { font-size: 17px; }
+input[type=text], input[type=number], input[type=date], textarea, select { height: 50px; padding: 10px; }
+button, .btn-menu, .btn-agregar-fila { font-size: 16px; padding: 14px 22px; height: 48px; }
+
+/* Tablet: evitar scroll vertical y mantener elementos a la vista */
+@media (max-width: 1024px) and (min-width: 481px) {
+    body { overflow-y: hidden; height: 100vh; }
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 8px;
+}
+
+/* ============================================= */
+/* HEADER CON CAMPOS + BOTONES ALINEADOS */
+/* ============================================= */
+.app-header { margin-bottom: 12px; }
+.header-content { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.header-left { display: flex; align-items: center; gap: 8px; }
+.title { color: var(--color-primary); font-size: 22px; font-weight: 600; }
+.logo { width: 120px; height: 45px; display: flex; align-items: center; justify-content: center; padding: 2px; }
+.logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.header-right-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+.header-fields-group { display: flex; gap: 8px; flex-wrap: nowrap; justify-content: flex-end; }
+.header-buttons-group { display: flex; gap: 12px; }
+
+/* Anchos exactos de los inputs del header */
+.input-codigo { width: 150px; }
+.input-version { width: 150px; }
+.input-fecha { width: 150px; }
+
+/* Botones */
+.btn-menu {
+    padding: 12px 25px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-menu:hover { background-color: #163C52; }
+
+/* Botón Agregar Fila */
+.btn-agregar-fila {
+    margin-top: 8px;
+    padding: 8px 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-agregar-fila:hover { background-color: #45a049; }
+
+/* ============================================= */
+/* RESTO DEL FORMULARIO (igual que antes) */
+/* ============================================= */
+.card { background: white; box-shadow: 0 2px 6px rgba(31,78,108,0.2); padding: 10px; margin-bottom: 6px; border-radius: 4px; }
+.section-title { color: var(--color-primary); font-size: 15px; font-weight: 700; margin-bottom: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--color-light-gray); }
+
+.field { display: flex; flex-direction: column; margin-bottom: 8px; }
+.field label, .header-field label { color: var(--color-text-dark); font-size: 14px; margin-bottom: 3px; font-weight: 500; }
+.field input, .header-field input, textarea { height: 46px; border: 2px solid #2D5A7B; padding: 6px 10px; font-size: 17px; background: #FAFBFC; border-radius: 3px; }
+textarea { height: 80px; padding: 8px; width: 100%; max-width: 100%; box-sizing: border-box; border: 2px solid #2D5A7B; background: #FAFBFC; border-radius: 3px; font-size: 16px; }
+
+/* Grid */
+.grid { display: grid; gap: 12px; align-items: flex-start; }
+.grid-12 { grid-template-columns: repeat(12, 1fr); }
+.col-1 { grid-column: span 1; } .col-2 { grid-column: span 2; } .col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; } .col-5 { grid-column: span 5; } .col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; } .col-8 { grid-column: span 8; } .col-9 { grid-column: span 9; }
+.col-10 { grid-column: span 10; } .col-11 { grid-column: span 11; } .col-12 { grid-column: span 12; }
+
+/* Tablas */
+.table-wrapper { overflow-x: auto; width: 100%; }
+table { width: 100%; border-collapse: collapse; margin: 0; padding: 0; }
+thead { display: table-header-group; }
+tbody { display: table-row-group; }
+tr { display: table-row; font-size: 12px; font-weight: 500; }
+th, td { display: table-cell; padding: 0; border: 1px solid #E8EAED; text-align: center; height: 38px; }
+thead tr th { background-color: var(--color-primary); color: white; padding: 8px 10px; font-weight: 700; text-align: center; display: flex; align-items: center; justify-content: center; border: 1px solid #E8EAED; font-size: 14px; }
+thead tr th[colspan="3"] { grid-column: span 3; }
+tbody tr { border: 1px solid #E8EAED; background-color: white; }
+.table-cell { padding: 0; border: 1px solid #E8EAED; display: flex; align-items: center; justify-content: center; min-height: 38px; }
+.table-cell input { height: 32px; width: 100%; padding: 2px 4px; font-size: 14px; box-sizing: border-box; border: 2px solid #2D5A7B; background: white; text-align: center; }
+.table-cell-label { background-color: #F8F8F8; font-weight: 600; color: var(--color-text-dark); text-align: center; white-space: normal; padding: 8px 6px; display: flex; align-items: center; justify-content: center; border: 1px solid #E8EAED; font-size: 13px; word-break: break-word; line-height: 1.2; }
+
+/* Agrandar elementos SOLO dentro de tablas */
+table { font-size: 14px; }
+thead tr th { font-size: 15px; padding: 10px 8px; }
+th, td { height: 44px; }
+.table-cell input { height: 44px !important; padding: 6px 8px !important; font-size: 16px !important; }
+.table-cell-label { font-size: 14px !important; padding: 10px 8px !important; }
+.total-label { background-color: #DBE5EF; color: var(--color-primary); font-weight: 700; padding: 4px 20px; }
+.kw-consumo { background-color: #DBE5EF; color: var(--color-primary); font-weight: 700; padding: 4px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #E8EAED; font-size: 9px; }
+.kw-consumo input { height: 20px; border: 1px solid var(--color-border); background: white; width: calc(100% - 8px); }
+
+/* Botones compactos pegados a la tabla */
+.inline-buttons { display: inline-flex; gap: 4px; align-items: center; margin-top: 3px; }
+.inline-buttons .btn-menu { padding: 6px 12px; height: 34px; font-size: 13px; }
+.inline-buttons .btn-delete { background-color: #ada8a8; color: #111; }
+.inline-buttons .btn-delete:hover { background-color: #999; }
+
+/* Columnas de tablas */
+.table-4-cols { grid-template-columns: 20% 27% 27% 26%; min-width: 300px; }
+table.table-4-cols { width: 100%; }
+table.table-4-cols thead tr { display: grid; grid-template-columns: 20% 27% 27% 26%; }
+table.table-4-cols tbody tr { display: grid; grid-template-columns: 20% 27% 27% 26%; }
+
+.analisis-14-cols { grid-template-columns: 80px repeat(13, 1fr); min-width: 750px; }
+table.analisis-14-cols { width: 100%; }
+table.analisis-14-cols thead tr { display: grid; grid-template-columns: 80px repeat(13, 1fr); }
+table.analisis-14-cols tbody tr { display: grid; grid-template-columns: 80px repeat(13, 1fr); }
+
+.temp-7-cols { grid-template-columns: 12% repeat(5, 10%) 38%; min-width: 600px; }
+table.temp-7-cols { width: 100%; }
+table.temp-7-cols thead tr { display: grid; grid-template-columns: 12% repeat(5, 10%) 38%; }
+table.temp-7-cols tbody tr { display: grid; grid-template-columns: 12% repeat(5, 10%) 38%; }
+
+/* Análisis químico */
+.analisis-container { display: flex; gap: 0; align-items: flex-start; }
+.analisis-main { flex-grow: 1; }
+.firma-column { width: 120px; flex-shrink: 0; display: flex; flex-direction: column; }
+.table-header { background-color: var(--color-primary); color: white; padding: 6px 8px; font-weight: 700; text-align: center; font-size: 11px; border: 1px solid #E8EAED; }
+.analisis-container .firma-column .table-header { padding: 8px 8px; }
+.analisis-firma-container { height: auto; display: flex; flex-direction: column; }
+.firma-box { display: block; cursor: pointer; flex-grow: 1; position: relative; }
+.firma-preview-analisis, .firma-area {
+    border: 2px dashed var(--color-border);
+    border-radius: 4px;
+    background-color: #FAFBFC;
+    color: #9CA3AF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    height: 90px;
+}
+
+/* Ajustes para tablet */
+@media (max-width: 768px) {
+    .observaciones-text {
+        max-width: 100%;   
+    }
+}
+
+/* Firma del Supervisor (Análisis) - mantiene tamaño original */
+.firma-preview-analisis {
+    height: 195px;
+    min-height: 107px;
+    font-size: 10px; /* texto más chico dentro del botón */
+}
+
+.firma-area { min-height: 60px; font-size: 11px; }
+.link { color: var(--color-primary); font-weight: 600; }
+.firma-box-click:hover .firma-preview-analisis,
+.firma-box-click:hover .firma-area {
+    background-color: #F3F4F6;
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+.file-hidden { display: none; }
+
+/* Tabla TIEMPOS */
+.tiempos-table-bordered {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E8EAED;
+}
+
+.tiempos-header {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 6px 8px;
+    font-weight: 700;
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid #E8EAED;
+}
+
+.table-row-bordered {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    border-bottom: 1px solid #E8EAED;
+    min-height: 32px;
+}
+
+.table-row-bordered:last-child {
+    border-bottom: none;
+}
+
+.label-box {
+    background-color: #F8F8F8;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--color-text-dark);
+    border-right: 1px solid #E8EAED;
+    white-space: nowrap;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: white;
+}
+
+.input-box input {
+    width: 100%;
+    height: 32px;
+    padding: 4px 6px;
+    font-size: 14px;
+    border: 2px solid #2D5A7B;
+    box-sizing: border-box;
+    background: white;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) and (min-width: 769px) and (orientation: landscape) {
+    body { font-size: 15px; }
+    .header-field input { height: 36px; font-size: 15px; }
+    .field input, textarea { height: 36px; font-size: 15px; }
+    th, td { height: 36px; }
+    thead tr th { padding: 7px 9px; font-size: 13px; }
+    .table-cell { min-height: 36px; }
+    .table-cell input { height: 30px; font-size: 13px; }
+    .container { padding: 6px; }
+}
+
+@media (max-width: 768px) {
+    body { font-size: 14px; }
+    .grid-12 > div { grid-column: span 12; }
+    .header-content { flex-direction: column; align-items: stretch; }
+    .header-right-buttons { align-items: stretch; }
+    .header-fields-group { justify-content: space-between; }
+    .header-field input { height: 32px; font-size: 14px; }
+    .field input, textarea { height: 32px; font-size: 14px; }
+    th, td { height: 32px; }
+    thead tr th { padding: 6px 8px; font-size: 12px; }
+    .table-cell { min-height: 32px; }
+    .table-cell input { height: 26px; font-size: 12px; }
+    .analisis-container { flex-direction: column; }
+    .firma-column { width: 100%; margin-top: 12px; }
+    .analisis-firma-container { height: 80px; }
+    .col-9, .col-3, .col-12 { grid-column: span 12; }
+}
+
+/* ============================================= */
+/* Clases extraídas de estilos en línea (Refactor) */
+/* ============================================= */
+
+/* Select en tabla de componentes */
+.select-componentes {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 4px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Margen inferior para header de firma */
+.mb-4 {
+    margin-bottom: 4px;
+}
+
+/* Header de observaciones en tabla temperaturas */
+.th-observaciones {
+    text-align: left !important;
+    padding-left: 12px !important;
+}
+
+/* Mensaje de bloqueo de firma (inyectado por JS) */
+.mensaje-bloqueo-firma {
+    text-align: center;
+    color: #c62828;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 10px;
+}
+
+/* Animación para mensaje de bienvenida */
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+.welcome-banner {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: bounce 1.5s ease-in-out;
+}
+

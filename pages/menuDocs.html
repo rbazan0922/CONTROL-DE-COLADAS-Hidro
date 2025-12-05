@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Tipo de Documento</title>
+    <link rel="stylesheet" href="../css/menuDocs.css">
+</head>
+<body>
+    <div class="main-menu-wrapper">
+        <div class="card app-header">
+            <div class="header-left-menu">
+                <div>
+                    <div class="app-title">Tipo de Documento</div>
+                    <div class="app-subtitle">Seleccione tipo de documento</div>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="window.location.href='menu.html'">
+                ← Volver al Menú
+            </button>
+        </div>
+
+        <div class="menu-grid">
+            
+            <!-- YA ESTÁN BIEN LOS ENLACES -->
+            <a href="electrico.html" class="card menu-item">
+                <div class="menu-icon">
+                    <span class="menu-icon-text">E</span>
+                </div>
+                <div class="menu-label">Eléctrico</div>
+                <div class="menu-description">Registro de colada horno eléctrico</div>
+            </a>
+
+            <a href="basculantes.html" class="card menu-item">
+                <div class="menu-icon">
+                    <span class="menu-icon-text">B</span>
+                </div>
+                <div class="menu-label">Basculantes</div>
+                <div class="menu-description">Registro de colada horno basculante</div>
+            </a>
+
+            <a href="ControlTermpe.html" class="card menu-item">
+                <div class="menu-icon">
+                    <span class="menu-icon-text">T</span>
+                </div>
+                <div class="menu-label">Control Temperaturas</div>
+                <div class="menu-description">Registro de temperaturas de vaceado</div>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Sistema de usuarios local - definir primero
+        const USUARIOS_PREDEFINIDOS = [
+            {
+                id: 1,
+                username: 'supervisor',
+                password: '123',
+                email: 'supervisor@hidrostal.com',
+                rol: 'supervisor'
+            },
+            {
+                id: 2,
+                username: 'hornero',
+                password: '123',
+                email: 'hornero@hidrostal.com',
+                rol: 'hornero'
+            }
+        ];
+
+        function inicializarUsuarios() {
+            const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+            if (!usuariosGuardados) {
+                localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+            }
+        }
+
+        function obtenerTodosUsuarios() {
+            inicializarUsuarios();
+            const usuarios = localStorage.getItem('usuarios-sistema');
+            return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+        }
+
+        function obtenerUsuarioPorUsername(username) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+        }
+
+        function obtenerUsuarioPorId(id) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.id === id);
+        }
+
+        function crearUsuario(username, email, password, rol) {
+            const usuarios = obtenerTodosUsuarios();
+            if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+                throw new Error('Usuario ya existe');
+            }
+            if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                throw new Error('Email ya existe');
+            }
+            const nuevoUsuario = {
+                id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+                username: username.toLowerCase(),
+                email: email.toLowerCase(),
+                password: password,
+                rol: rol,
+                createdAt: new Date().toISOString()
+            };
+            usuarios.push(nuevoUsuario);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return nuevoUsuario;
+        }
+
+        function cambiarRolUsuario(usuarioId, nuevoRol) {
+            const usuarios = obtenerTodosUsuarios();
+            const usuario = usuarios.find(u => u.id === usuarioId);
+            if (!usuario) throw new Error('Usuario no encontrado');
+            usuario.rol = nuevoRol;
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuario;
+        }
+
+        function eliminarUsuario(usuarioId) {
+            const usuarios = obtenerTodosUsuarios();
+            const index = usuarios.findIndex(u => u.id === usuarioId);
+            if (index === -1) throw new Error('Usuario no encontrado');
+            const usuarioEliminado = usuarios[index];
+            usuarios.splice(index, 1);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuarioEliminado;
+        }
+
+        inicializarUsuarios();
+    </script>
+</body>
+</html>

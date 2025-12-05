@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - CONTROL DE COLADAS H. ELÉCTRICO</title>
+    <link rel="shortcut icon" href="./img/hidrostal-sa--big.svg" />
+    
+    <!-- Enlace al archivo de estilos del login -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="card login-container">
+        <!-- Formulario conectado a API de autenticación -->
+        <form id="loginForm"> 
+            <div class="login-header">
+                <div class="logo-login">
+                    <img src="img/SistemaLogo.png" alt="Logo de la empresa">
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" placeholder="Hornero o Supervisor" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <button type="submit" class="btn-login" id="submitBtn">Ingresar</button>
+        </form>
+        <script>
+            // Sistema de usuarios local - definir primero
+            const USUARIOS_PREDEFINIDOS = [
+                {
+                    id: 1,
+                    username: 'supervisor',
+                    password: '123',
+                    email: 'supervisor@hidrostal.com',
+                    rol: 'supervisor'
+                },
+                {
+                    id: 2,
+                    username: 'hornero',
+                    password: '123',
+                    email: 'hornero@hidrostal.com',
+                    rol: 'hornero'
+                }
+            ];
+
+            function inicializarUsuarios() {
+                const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+                if (!usuariosGuardados) {
+                    localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+                }
+            }
+
+            function obtenerTodosUsuarios() {
+                inicializarUsuarios();
+                const usuarios = localStorage.getItem('usuarios-sistema');
+                return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+            }
+
+            function obtenerUsuarioPorUsername(username) {
+                const usuarios = obtenerTodosUsuarios();
+                return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+            }
+
+            function verificarCredenciales(username, password) {
+                const usuario = obtenerUsuarioPorUsername(username);
+                if (!usuario) return null;
+                if (usuario.password !== password) return null;
+                return usuario;
+            }
+
+            function crearUsuario(username, email, password, rol) {
+                const usuarios = obtenerTodosUsuarios();
+                if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+                    throw new Error('Usuario ya existe');
+                }
+                if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                    throw new Error('Email ya existe');
+                }
+                const nuevoUsuario = {
+                    id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+                    username: username.toLowerCase(),
+                    email: email.toLowerCase(),
+                    password: password,
+                    rol: rol,
+                    createdAt: new Date().toISOString()
+                };
+                usuarios.push(nuevoUsuario);
+                localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+                return nuevoUsuario;
+            }
+
+            function cambiarRolUsuario(usuarioId, nuevoRol) {
+                const usuarios = obtenerTodosUsuarios();
+                const usuario = usuarios.find(u => u.id === usuarioId);
+                if (!usuario) throw new Error('Usuario no encontrado');
+                usuario.rol = nuevoRol;
+                localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+                return usuario;
+            }
+
+            function eliminarUsuario(usuarioId) {
+                const usuarios = obtenerTodosUsuarios();
+                const index = usuarios.findIndex(u => u.id === usuarioId);
+                if (index === -1) throw new Error('Usuario no encontrado');
+                const usuarioEliminado = usuarios[index];
+                usuarios.splice(index, 1);
+                localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+                return usuarioEliminado;
+            }
+
+            function obtenerUsuarioPorId(id) {
+                const usuarios = obtenerTodosUsuarios();
+                return usuarios.find(u => u.id === id);
+            }
+
+            inicializarUsuarios();
+        </script>
+        <script src="JS/login.js"></script>
+    </div>
+</body>
+</html>

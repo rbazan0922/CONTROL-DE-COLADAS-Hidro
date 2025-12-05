@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL COLADAS H. BASCULANTE</title>
+    <link rel="stylesheet" href="../css/basculantes.css">
+</head>
+<body>
+    <div class="container">
+        <!-- CABECERA -->
+        <div class="card app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../img/Hidrostal_Logo.png" alt="Hidrostal Logo">
+                    </div>
+                    <h1 class="title">CONTROL COLADAS H. BASCULANTE</h1>
+                </div>
+                <div class="header-right-buttons">
+                    <div class="header-fields-group">
+                        <div class="header-field"><label>CÓDIGO:</label><input type="text" class="input-codigo"></div>
+                        <div class="header-field"><label>VERSIÓN:</label><input type="text" class="input-version"></div>
+                        <div class="header-field"><label>FECHA:</label><input type="date" class="input-fecha"></div>
+                    </div>
+                    <div class="header-buttons-group">
+                        <button class="btn-menu" onclick="guardarDocumento('basculantes', {})">Guardar</button>
+                        <a href="menuDocs.html" class="btn-menu">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS GENERALES -->
+        <div class="card">
+            <div class="grid grid-12">
+                <div class="col-2 field"><label>COLADA</label><input type="text"></div>
+                <div class="col-3 field"><label>METAL</label><input type="text"></div>
+                <div class="col-2 field"><label>ARRANQUE</label><input type="time"></div>
+                <div class="col-3 field"><label>TEMPERATURA SANGRADO</label><input type="number"></div>
+                <div class="col-2 field"><label>TOTAL ACUMULADO</label><input type="text"></div>
+                <div class="col-6 field"><label>N° WO</label><input type="text"></div>
+                <div class="col-6 field"><label>N° ARTÍCULO</label><input type="text"></div>
+            </div>
+        </div>
+
+        <!-- 1. COMPONENTES DE LA CARGA -->
+        <div class="grid grid-12">
+            <!-- TABLA COMPLETA ANCHO -->
+            <div class="col-12 card">
+                <h2 class="section-title">1. COMPONENTES DE LA CARGA</h2>
+                <table class="table-complex" id="tabla-componentes">
+                    <thead><tr><th colspan="2">COMPONENTES</th><th colspan="2">HORNO</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell-label center-text">
+                                <select class="select-componentes">
+                                    <option value="">Código</option>
+                                    <option value="LHO2002">LHO2002</option>
+                                    <option value="LHC5001">LHC5001</option>
+                                    <option value="LHZ1001">LHZ1001</option>
+                                    <option value="LHE6001">LHE6001</option>
+                                    <option value="LHB5001">LHB5001</option>
+                                </select>
+                            </td>
+                            <td class="table-cell-label">
+                                <select class="select-componentes">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="RETORNO">RETORNO</option>
+                                    <option value="LINGOTE">LINGOTE</option>
+                                    <option value="LIGA">LIGA</option>
+                                    <option value="COBRE">COBRE</option>
+                                    <option value="ZINC">ZINC</option>
+                                    <option value="ESTAÑO">ESTAÑO</option>
+                                    <option value="BISMUTO">BISMUTO</option>
+                                </select>
+                            </td>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell"><input type="number"></td>
+                        </tr>
+                        <tr><td class="table-cell-label total-label" colspan="2">CARGA FRIA</td><td class="table-cell"><input type="number"></td><td class="table-cell"></td></tr>
+                    </tbody>
+                </table>
+                <div class="inline-buttons">
+                    <button class="btn-menu" onclick="agregarFilaComponentes()">+ Agregar fila</button>
+                    <button class="btn-menu btn-delete" onclick="eliminarFilaComponentes()">- Eliminar fila</button>
+                </div>
+            </div>
+
+            <!-- TABLA DERECHA -->
+            <div class="col-12 card">
+                <h2 class="section-title">2. ADICIONES</h2>
+                <table class="table-complex" id="tabla-adiciones">
+                    <thead><tr><th colspan="2">ADICIONES</th><th colspan="2">CALLANA</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell-label center-text">
+                                <select class="select-componentes">
+                                    <option value="">Código</option>
+                                    <option value="LIZ0092">LIZ0092</option>
+                                    <option value="LIT4002">LIT4002</option>
+                                    <option value="LHZ1001">LHZ1001</option>
+                                    <option value="LHE6001">LHE6001</option>
+                                    <option value="LHB5001">LHB5001</option>
+                                    <option value="LHO2001">LHO2001</option>
+                                    <option value="LIZ0454">LIZ0454</option>
+                                </select>
+                            </td>
+                            <td class="table-cell-label">
+                                <select class="select-componentes">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="LOGAS">LOGAS</option>
+                                    <option value="TUBOS E5">TUBOS E5</option>
+                                    <option value="ZINC">ZINC</option>
+                                    <option value="ESTAÑO">ESTAÑO</option>
+                                    <option value="BISMUTO">BISMUTO</option>
+                                    <option value="COBRE FOSFOROSO">COBRE FOSFOROSO</option>
+                                    <option value="FLUX 503">FLUX 503</option>
+                                </select>
+                            </td>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell"><input type="number"></td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell-label">OTROS</td>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell"><input type="number"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="inline-buttons">
+                    <button class="btn-menu btn-square" onclick="agregarFilaAdiciones()">+ Agregar fila</button>
+                    <button class="btn-menu btn-delete btn-square" onclick="eliminarFilaAdiciones()">- Eliminar fila</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.0 ANÁLISIS QUÍMICO -->
+        <div class="card" style="margin-top:10px;">
+            <h2 class="section-title">3. ANÁLISIS QUÍMICO</h2>
+            <div class="analisis-container">
+                <div class="analisis-main table-wrapper">
+                    <table class="analisis-exacto-cols" id="tabla-analisis">
+                        <thead>
+                            <tr>
+                                <th>METAL</th><th>Si</th><th>Zn</th><th>Fe</th><th>Pb</th><th>Sn</th><th>Mg</th>
+                                <th>Al</th><th>Bi</th><th>P</th><th>Mn</th><th>S</th><th>Cu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-cell"><input type="text"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- FIRMA LATERAL SUPERVISOR -->
+                <div class="firma-column">
+                    <div class="table-header">Superv(V°B°)</div>
+                    <div class="analisis-firma-container">
+                        <label for="firma-supervisor-lateral" class="firma-box firma-box-click">
+                            <div class="firma-preview-analisis">
+                                <div>Firma</div>
+                                <div>Supervisor</div>
+                                <div class="link">(Subir imagen)</div>
+                            </div>
+                            <input type="file" id="firma-supervisor-lateral" accept="image/*" class="file-hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="inline-buttons analisis-actions">
+                <button class="btn-menu" onclick="agregarFilaAnalisis()">+ Agregar fila</button>
+                <button class="btn-menu btn-delete" onclick="eliminarFilaAnalisis()">- Eliminar fila</button>
+            </div>
+        </div>
+
+        <!-- 3. TEMPERATURA -->
+        <div class="card">
+            <h2 class="section-title">4. TEMPERATURA</h2>
+            <div class="grid grid-12">
+                <div class="col-9">
+                    <div class="table-wrapper">
+                        <table class="temp-exact-cols" id="tabla-temperatura">
+                            <thead><tr><th>HORA</th><th>TEMP</th><th>No PIEZAS</th><th>DESCRIPCION</th></tr></thead>
+                            <tbody>
+                                <tr><td class="table-cell"><input type="time"></td><td class="table-cell"><input type="number"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="inline-buttons">
+                            <button class="btn-menu" onclick="agregarFilaTemperatura()">+ Agregar fila</button>
+                            <button class="btn-menu btn-delete" onclick="eliminarFilaTemperatura()">- Eliminar fila</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="tiempos-table-bordered">
+                        <div class="tiempos-header">TIEMPOS</div>
+                        <div class="table-row-bordered"><div class="label-box">FUSION INICIO</div><div class="input-box"><input type="time"></div></div>
+                        <div class="table-row-bordered"><div class="label-box">FUSION FINAL</div><div class="input-box"><input type="time"></div></div>
+                        <div class="table-row-bordered"><div class="label-box">SANGR. INICIO</div><div class="input-box"><input type="time"></div></div>
+                        <div class="table-row-bordered"><div class="label-box">SANGR. FINAL</div><div class="input-box"><input type="time"></div></div>
+                        <div class="table-row-bordered"><div class="label-box">LINGOTEO (KG)</div><div class="input-box"><input type="number"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. OBSERVACIONES -->
+        <div class="card" style="margin-top:8px;">
+            <h2 class="section-title">5. OBSERVACIONES</h2>
+            <textarea id="observaciones" rows="4"></textarea>
+        </div>
+
+        <!-- FIRMAS FINALES -->
+        <div class="card">
+            <div class="grid grid-12">
+                <div class="col-6 field">
+                    <label class="firma-label-center">HORNERO</label>
+                    <label class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-hornero" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+                <div class="col-6 field">
+                    <label class="firma-label-center">SUPERVISOR</label>
+                    <label class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-supervisor-pie" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT FINAL – TODO FUNCIONA -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Fecha automática
+            document.querySelectorAll("input[type='date'], .input-fecha").forEach(input => {
+                if (!input.value) input.value = new Date().toISOString().split("T")[0];
+            });
+
+            // Si es hornero → bloquea TODAS las firmas de supervisor
+            if (localStorage.getItem("rol") === "hornero") {
+                document.querySelectorAll('input[type="file"]').forEach(input => {
+                    if (input.id.includes("supervisor")) {
+                        const caja = input.closest("label");
+                        caja.style.pointerEvents = "none";
+                        caja.style.opacity = "0.4";
+                        caja.style.background = "#ffebee";
+                        caja.style.border = "2px dashed #c62828";
+                        caja.innerHTML = `
+                            <div class="mensaje-bloqueo-firma">
+                                SOLO EL SUPERVISOR<br>PUEDE FIRMAR AQUÍ
+                            </div>`;
+                    }
+                });
+            }
+        });
+
+        // Animación del banner
+        const style = document.createElement("style");
+        style.textContent = `
+            @keyframes bounce {
+                0%,100%{transform:translateX(-50%) translateY(0)}
+                50%{transform:translateX(-50%) translateY(-15px)}
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+
+    <!-- SCRIPT DE DOCUMENTOS -->
+    <script>
+        // Sistema de usuarios local - definir primero
+        const USUARIOS_PREDEFINIDOS = [
+            {
+                id: 1,
+                username: 'supervisor',
+                password: '123',
+                email: 'supervisor@hidrostal.com',
+                rol: 'supervisor'
+            },
+            {
+                id: 2,
+                username: 'hornero',
+                password: '123',
+                email: 'hornero@hidrostal.com',
+                rol: 'hornero'
+            }
+        ];
+
+        function inicializarUsuarios() {
+            const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+            if (!usuariosGuardados) {
+                localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+            }
+        }
+
+        function obtenerTodosUsuarios() {
+            inicializarUsuarios();
+            const usuarios = localStorage.getItem('usuarios-sistema');
+            return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+        }
+
+        function obtenerUsuarioPorUsername(username) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+        }
+
+        function obtenerUsuarioPorId(id) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.id === id);
+        }
+
+        function crearUsuario(username, email, password, rol) {
+            const usuarios = obtenerTodosUsuarios();
+            if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+                throw new Error('Usuario ya existe');
+            }
+            if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                throw new Error('Email ya existe');
+            }
+            const nuevoUsuario = {
+                id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+                username: username.toLowerCase(),
+                email: email.toLowerCase(),
+                password: password,
+                rol: rol,
+                createdAt: new Date().toISOString()
+            };
+            usuarios.push(nuevoUsuario);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return nuevoUsuario;
+        }
+
+        function cambiarRolUsuario(usuarioId, nuevoRol) {
+            const usuarios = obtenerTodosUsuarios();
+            const usuario = usuarios.find(u => u.id === usuarioId);
+            if (!usuario) throw new Error('Usuario no encontrado');
+            usuario.rol = nuevoRol;
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuario;
+        }
+
+        function eliminarUsuario(usuarioId) {
+            const usuarios = obtenerTodosUsuarios();
+            const index = usuarios.findIndex(u => u.id === usuarioId);
+            if (index === -1) throw new Error('Usuario no encontrado');
+            const usuarioEliminado = usuarios[index];
+            usuarios.splice(index, 1);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuarioEliminado;
+        }
+
+        inicializarUsuarios();
+    </script>
+    <script src="../JS/documentos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // === FECHA AUTOMÁTICA DE HOY ===
+            document.querySelectorAll("input[type='date'], .input-fecha").forEach(input => {
+                if (!input.value) {
+                    input.value = new Date().toISOString().split("T")[0];
+                }
+            });
+
+            // === BLOQUEAR FIRMAS DEL SUPERVISOR SI ES HORNERO ===
+            if (localStorage.getItem("rol") === "hornero") {
+                document.querySelectorAll('input[type="file"]').forEach(input => {
+                    if (input.id.includes("supervisor")) {
+                        const caja = input.closest("label");
+                        caja.style.pointerEvents = "none";
+                        caja.style.opacity = "0.4";
+                        caja.style.background = "#ffebee";
+                        caja.style.border = "2px dashed #c62828";
+                        caja.innerHTML = `
+                            <div class="mensaje-bloqueo-firma">
+                                SOLO EL SUPERVISOR<br>PUEDE FIRMAR AQUÍ
+                            </div>`;
+                    }
+                });
+            }
+
+            // === MENSAJE DE BIENVENIDA ===
+            const nombre = localStorage.getItem("usuarioLogueado") || "Usuario";
+            const rol = localStorage.getItem("rol");
+            const mensaje = `BIENVENIDO ${nombre}`;
+            const banner = document.createElement("div");
+            banner.textContent = mensaje;
+            banner.className = 'welcome-banner';
+            banner.style.backgroundColor = rol === "supervisor" ? "#d32f2f" : "#ff9800";
+            document.body.appendChild(banner);
+            setTimeout(() => banner.remove(), 2000);
+        });
+
+        // Animación suave del mensaje
+        const animStyle = document.createElement("style");
+        animStyle.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: translateX(-50%) translateY(0); }
+                50% { transform: translateX(-50%) translateY(-15px); }
+            }
+        `;
+        document.head.appendChild(animStyle);
+
+        // Función para agregar filas a COMPONENTES (1 fila inicial + dinámicas)
+        function agregarFilaComponentes() {
+            const tabla = document.getElementById('tabla-componentes');
+            const tbody = tabla.querySelector('tbody');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td class="table-cell-label center-text">
+                    <select class="select-componentes">
+                        <option value="">Código</option>
+                        <option value="LHO2002">LHO2002</option>
+                        <option value="LHC5001">LHC5001</option>
+                        <option value="LHZ1001">LHZ1001</option>
+                        <option value="LHE6001">LHE6001</option>
+                        <option value="LHB5001">LHB5001</option>
+                    </select>
+                </td>
+                <td class="table-cell-label">
+                    <select class="select-componentes">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="RETORNO">RETORNO</option>
+                        <option value="LINGOTE">LINGOTE</option>
+                        <option value="LIGA">LIGA</option>
+                        <option value="COBRE">COBRE</option>
+                        <option value="ZINC">ZINC</option>
+                        <option value="ESTAÑO">ESTAÑO</option>
+                        <option value="BISMUTO">BISMUTO</option>
+                    </select>
+                </td>
+                <td class="table-cell"><input type="number"></td>
+                <td class="table-cell"><input type="number"></td>
+            `;
+            tbody.insertBefore(fila, tbody.lastElementChild);
+        }
+
+        function agregarFilaAdiciones() {
+            const tabla = document.getElementById('tabla-adiciones');
+            const tbody = tabla.querySelector('tbody');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td class="table-cell-label center-text">
+                    <select class="select-componentes">
+                        <option value="">Código</option>
+                        <option value="LIZ0092">LIZ0092</option>
+                        <option value="LIT4002">LIT4002</option>
+                        <option value="LHZ1001">LHZ1001</option>
+                        <option value="LHE6001">LHE6001</option>
+                        <option value="LHB5001">LHB5001</option>
+                        <option value="LHO2001">LHO2001</option>
+                        <option value="LIZ0454">LIZ0454</option>
+                    </select>
+                </td>
+                <td class="table-cell-label">
+                    <select class="select-componentes">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="LOGAS">LOGAS</option>
+                        <option value="TUBOS E5">TUBOS E5</option>
+                        <option value="ZINC">ZINC</option>
+                        <option value="ESTAÑO">ESTAÑO</option>
+                        <option value="BISMUTO">BISMUTO</option>
+                        <option value="COBRE FOSFOROSO">COBRE FOSFOROSO</option>
+                        <option value="FLUX 503">FLUX 503</option>
+                    </select>
+                </td>
+                <td class="table-cell"><input type="number"></td>
+                <td class="table-cell"><input type="number"></td>
+            `;
+            tbody.insertBefore(fila, tbody.lastElementChild);
+        }
+
+        function eliminarFilaComponentes() {
+            const tbody = document.getElementById('tabla-componentes').querySelector('tbody');
+            if (tbody.children.length > 2) {
+                tbody.removeChild(tbody.children[tbody.children.length - 2]);
+            }
+        }
+
+        function eliminarFilaAdiciones() {
+            const tbody = document.getElementById('tabla-adiciones').querySelector('tbody');
+            if (tbody.children.length > 2) {
+                tbody.removeChild(tbody.children[tbody.children.length - 2]);
+            }
+        }
+
+        function eliminarFilaTemperatura() {
+            const tbody = document.getElementById('tabla-temperatura').querySelector('tbody');
+            if (tbody.children.length > 1) {
+                tbody.removeChild(tbody.lastElementChild);
+            }
+        }
+
+        function agregarFilaAnalisis() {
+            const tabla = document.getElementById('tabla-analisis');
+            const tbody = tabla.querySelector('tbody');
+            const fila = document.createElement('tr');
+            let html = '<td class="table-cell"><input type="text"></td>';
+            for (let i = 0; i < 12; i++) {
+                html += '<td class="table-cell"><input type="number" step="0.001"></td>';
+            }
+            fila.innerHTML = html;
+            tbody.appendChild(fila);
+        }
+
+        function eliminarFilaAnalisis() {
+            const tabla = document.getElementById('tabla-analisis');
+            const tbody = tabla.querySelector('tbody');
+            if (tbody.children.length > 1) {
+                tbody.removeChild(tbody.lastElementChild);
+            }
+        }
+
+        function agregarFilaTemperatura() {
+            const tabla = document.getElementById('tabla-temperatura');
+            const tbody = tabla.querySelector('tbody');
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td class="table-cell"><input type="time"></td>
+                <td class="table-cell"><input type="number"></td>
+                <td class="table-cell"><input type="text"></td>
+                <td class="table-cell"><input type="text"></td>
+            `;
+            tbody.appendChild(fila);
+        }
+
+        inicializarDocumento('basculantes');
+    </script>
+</body>
+</html>

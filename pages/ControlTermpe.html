@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL DE TEMPERATURAS DE VACEADO</title>
+    <link rel="stylesheet" href="../css/ControlTermpe.css">
+    </head>
+<body>
+
+<div class="container">
+
+  <!-- ENCABEZADO -->
+    <div class="card app-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo">
+                    <!-- Placeholder de imagen para el logo original -->
+                    <img src="../img/Hidrostal_Logo.png" alt="Hidrostal Logo">
+                </div>
+                <h1 class="title">CONTROL DE TEMPERATURAS</h1>
+            </div>
+            <div class="header-right-buttons">
+                <div class="header-fields-group">
+                    <div class="header-field">
+                        <label>Código:</label>
+                        <input type="text" class="input-codigo">
+                    </div>
+                    <div class="header-field">
+                        <label>Versión:</label>
+                        <input type="text" class="input-version">
+                    </div>
+                    <div class="header-field">
+                        <label>Fecha:</label>
+                        <input type="date" class="input-fecha">
+                    </div>
+                </div>
+                <div class="header-buttons-group">
+                    <button class="btn-menu" onclick="guardarDocumento('temperaturas', {})">Guardar</button>
+                    <a href="menuDocs.html" class="btn-menu">Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- DATOS GENERALES -->
+    <div class="card">
+        <div class="grid grid-12">
+            <div class="col-4 field"><label>FECHA</label><input type="text"></div>
+            <div class="col-4 field"><label>MOLDEO MANUAL</label><input type="text"></div>
+            <div class="col-4 field"><label>MODELO MAQUINA</label><input type="text"></div>
+        </div>
+    </div>
+
+    <!-- ================= TABLA PRINCIPAL ================= -->
+       <div class="card">
+            <h2 class="section-title">ANÁLISIS QUÍMICO</h2>
+            <div class="analisis-container">
+                <div class="analisis-main table-wrapper">
+                    <table class="analisis-14-cols" id="tabla-analisis-temp">
+                        <thead>
+                            <tr>
+                                <th>Nº CALLANA</th>
+                                <th>CÓDIGO</th>
+                                <th>MATERIAL</th>
+                                <th>TEMP</th>
+                                <th>CANTIDAD</th>
+                                <th>HORA INICIO</th>
+                                <th>HORA FINAL</th>
+                                <th>N° COLADA</th>
+                                <th>N° COLADA</th> <!-- Tu encabezado original, repetido -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Solo una fila inicial -->
+                            <tr>
+                                <td class="table-cell"><input type="text"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                                <td class="table-cell"><input type="number" step="0.001"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="firma-column">
+                    <div class="table-header mb-4">
+                        <span>Superv(V°B°)</span>
+                    </div>
+                    <div class="analisis-firma-container">
+                        <label for="firma-supervisor-file" class="firma-box firma-box-click">
+                            <span class="firma-preview-analisis">
+                                <span>Firma</span>
+                                <span>Supervisor</span>
+                                <span class="link">(Subir imagen)</span>
+                            </span>
+                            <input type="file" id="firma-supervisor-file" accept="image/*" class="file-hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="inline-buttons analisis-actions">
+                <button class="btn-menu" onclick="agregarFilaAnalisisTemp()">+ Agregar fila</button>
+                <button class="btn-menu btn-delete" onclick="eliminarFilaAnalisisTemp()">- Eliminar fila</button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+// Script mágico – Bienvenida simple y elegante
+document.addEventListener("DOMContentLoaded", () => {
+
+    // === FECHA AUTOMÁTICA DE HOY ===
+    document.querySelectorAll("input[type='date'], .input-fecha").forEach(input => {
+        if (!input.value) {
+            input.value = new Date().toISOString().split("T")[0];
+        }
+    });
+
+    // === BLOQUEAR FIRMAS DEL SUPERVISOR SI ES HORNERO ===
+    if (localStorage.getItem("rol") === "hornero") {
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            if (input.id.includes("supervisor")) {
+                const caja = input.closest("label") || input.parentElement;
+                caja.style.pointerEvents = "none";
+                caja.style.opacity = "0.4";
+                caja.style.background = "#ffebee";
+                caja.style.border = "2px dashed #c62828";
+                caja.innerHTML = `
+                    <div class="mensaje-bloqueo-firma">
+                        SOLO EL SUPERVISOR<br>PUEDE FIRMAR AQUÍ
+                    </div>
+                `;
+            }
+        });
+    }
+
+    // === MENSAJE DE BIENVENIDA ===
+    const nombre = localStorage.getItem("usuarioLogueado") || "Usuario";
+    const rol = localStorage.getItem("rol");
+    const mensaje = `BIENVENIDO ${nombre}`;
+    const banner = document.createElement("div");
+    banner.textContent = mensaje;
+    banner.className = 'welcome-banner';
+    banner.style.backgroundColor = rol === "supervisor" ? "#d32f2f" : "#ff9800";
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 2000);
+});
+
+// Animación suave del mensaje
+const style = document.createElement("style");
+style.textContent = `
+    @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-15px); }
+    }
+`;
+document.head.appendChild(style);
+</script>
+
+<!-- SCRIPT DE DOCUMENTOS -->
+<script>
+    // Sistema de usuarios local - definir primero
+    const USUARIOS_PREDEFINIDOS = [
+        {
+            id: 1,
+            username: 'supervisor',
+            password: '123',
+            email: 'supervisor@hidrostal.com',
+            rol: 'supervisor'
+        },
+        {
+            id: 2,
+            username: 'hornero',
+            password: '123',
+            email: 'hornero@hidrostal.com',
+            rol: 'hornero'
+        }
+    ];
+
+    function inicializarUsuarios() {
+        const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+        if (!usuariosGuardados) {
+            localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+        }
+    }
+
+    function obtenerTodosUsuarios() {
+        inicializarUsuarios();
+        const usuarios = localStorage.getItem('usuarios-sistema');
+        return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+    }
+
+    function obtenerUsuarioPorUsername(username) {
+        const usuarios = obtenerTodosUsuarios();
+        return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+    }
+
+    function obtenerUsuarioPorId(id) {
+        const usuarios = obtenerTodosUsuarios();
+        return usuarios.find(u => u.id === id);
+    }
+
+    function crearUsuario(username, email, password, rol) {
+        const usuarios = obtenerTodosUsuarios();
+        if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+            throw new Error('Usuario ya existe');
+        }
+        if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+            throw new Error('Email ya existe');
+        }
+        const nuevoUsuario = {
+            id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+            username: username.toLowerCase(),
+            email: email.toLowerCase(),
+            password: password,
+            rol: rol,
+            createdAt: new Date().toISOString()
+        };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return nuevoUsuario;
+    }
+
+    function cambiarRolUsuario(usuarioId, nuevoRol) {
+        const usuarios = obtenerTodosUsuarios();
+        const usuario = usuarios.find(u => u.id === usuarioId);
+        if (!usuario) throw new Error('Usuario no encontrado');
+        usuario.rol = nuevoRol;
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return usuario;
+    }
+
+    function eliminarUsuario(usuarioId) {
+        const usuarios = obtenerTodosUsuarios();
+        const index = usuarios.findIndex(u => u.id === usuarioId);
+        if (index === -1) throw new Error('Usuario no encontrado');
+        const usuarioEliminado = usuarios[index];
+        usuarios.splice(index, 1);
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return usuarioEliminado;
+    }
+
+    inicializarUsuarios();
+</script>
+<script src="../JS/documentos.js"></script>
+<script>
+    inicializarDocumento('temperaturas');
+
+    // Función para agregar filas en ANÁLISIS QUÍMICO
+    function agregarFilaAnalisisTemp() {
+        const tabla = document.getElementById('tabla-analisis-temp');
+        const tbody = tabla.querySelector('tbody');
+        const fila = document.createElement('tr');
+        let html = '<td class="table-cell"><input type="text"></td>';
+        for (let i = 0; i < 8; i++) {
+            html += '<td class="table-cell"><input type="number" step="0.001"></td>';
+        }
+        fila.innerHTML = html;
+        tbody.appendChild(fila);
+    }
+
+    function eliminarFilaAnalisisTemp() {
+        const tabla = document.getElementById('tabla-analisis-temp');
+        const tbody = tabla.querySelector('tbody');
+        if (tbody.children.length > 1) {
+            tbody.removeChild(tbody.lastElementChild);
+        }
+    }
+</script>
+</body>
+</html>

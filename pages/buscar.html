@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Registros - Sistema de Control</title>
+    <link rel="stylesheet" href="../css/basculantes.css">
+    <link rel="stylesheet" href="../css/buscar.css">
+</head>
+<body>
+    <div class="container">
+        <!-- CABECERA -->
+        <div class="card app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../img/Hidrostal_Logo.png" alt="Hidrostal Logo">
+                    </div>
+                    <h1 class="title">BUSCAR REGISTROS</h1>
+                </div>
+                <div class="header-right-buttons">
+                    <div class="header-buttons-group">
+                        <a href="menu.html" class="btn-menu">← Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE BÚSQUEDA -->
+        <div class="card">
+            <h2>Buscar Documento</h2>
+            
+            <div class="busqueda-header">
+                <div class="field">
+                    <label>Tipo de Documento:</label>
+                    <select id="tipoDocumento">
+                        <option value="">-- Seleccionar Tipo --</option>
+                        <option value="basculantes">Basculantes</option>
+                        <option value="electrico">Eléctrico</option>
+                        <option value="temperaturas">Control Temperaturas</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Código (Opcional):</label>
+                    <input type="text" id="codigoDocumento" placeholder="Ej: BASC-2025-001">
+                </div>
+
+                <button class="btn-menu btn-square" onclick="buscarDocumentos()">Buscar</button>
+            </div>
+
+            <div id="mensaje" class="mensaje"></div>
+        </div>
+
+        <!-- TABLA DE RESULTADOS -->
+        <div class="card tabla-resultados" style="margin-top: 15px;">
+            <table id="tablaResultados">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Versión</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #999;">Ingresa un tipo de documento y haz clic en Buscar</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PAGINACIÓN -->
+        <div class="paginacion" id="paginacion" style="display: none;">
+            <button onclick="paginaAnterior()">← Anterior</button>
+            <span id="infoPaginacion"></span>
+            <button onclick="paginaSiguiente()">Siguiente →</button>
+        </div>
+    </div>
+
+    <script>
+        // Sistema de usuarios local - definir primero
+        const USUARIOS_PREDEFINIDOS = [
+            {
+                id: 1,
+                username: 'supervisor',
+                password: '123',
+                email: 'supervisor@hidrostal.com',
+                rol: 'supervisor'
+            },
+            {
+                id: 2,
+                username: 'hornero',
+                password: '123',
+                email: 'hornero@hidrostal.com',
+                rol: 'hornero'
+            }
+        ];
+
+        function inicializarUsuarios() {
+            const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+            if (!usuariosGuardados) {
+                localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+            }
+        }
+
+        function obtenerTodosUsuarios() {
+            inicializarUsuarios();
+            const usuarios = localStorage.getItem('usuarios-sistema');
+            return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+        }
+
+        function obtenerUsuarioPorUsername(username) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+        }
+
+        function obtenerUsuarioPorId(id) {
+            const usuarios = obtenerTodosUsuarios();
+            return usuarios.find(u => u.id === id);
+        }
+
+        function crearUsuario(username, email, password, rol) {
+            const usuarios = obtenerTodosUsuarios();
+            if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+                throw new Error('Usuario ya existe');
+            }
+            if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+                throw new Error('Email ya existe');
+            }
+            const nuevoUsuario = {
+                id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+                username: username.toLowerCase(),
+                email: email.toLowerCase(),
+                password: password,
+                rol: rol,
+                createdAt: new Date().toISOString()
+            };
+            usuarios.push(nuevoUsuario);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return nuevoUsuario;
+        }
+
+        function cambiarRolUsuario(usuarioId, nuevoRol) {
+            const usuarios = obtenerTodosUsuarios();
+            const usuario = usuarios.find(u => u.id === usuarioId);
+            if (!usuario) throw new Error('Usuario no encontrado');
+            usuario.rol = nuevoRol;
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuario;
+        }
+
+        function eliminarUsuario(usuarioId) {
+            const usuarios = obtenerTodosUsuarios();
+            const index = usuarios.findIndex(u => u.id === usuarioId);
+            if (index === -1) throw new Error('Usuario no encontrado');
+            const usuarioEliminado = usuarios[index];
+            usuarios.splice(index, 1);
+            localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+            return usuarioEliminado;
+        }
+
+        inicializarUsuarios();
+    </script>
+    <script src="../JS/buscar.js"></script>
+</body>
+</html>

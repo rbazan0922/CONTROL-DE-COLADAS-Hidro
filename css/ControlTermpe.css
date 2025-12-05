@@ -1,0 +1,315 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Variables CSS */
+        :root {
+            --color-primary: #1F4E6C; /* Azul Oscuro (Primario) */
+            --color-light-gray: #E6EBEF; /* Gris Claro de Fondo */
+            --color-border: #C7CCD1; /* Gris para Bordes */
+            --color-text-dark: #2A2A2A; /* Texto Oscuro */
+            --color-input-border: #2D5A7B; /* Borde de input más oscuro */
+        }
+
+        /* Base */
+        body {
+            font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-light-gray);
+            font-size: 18px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 8px;
+        }
+
+        /* Aumentar tamaño global de inputs y botones */
+        input, textarea, select { font-size: 17px; }
+        input[type=text], input[type=number], input[type=date], textarea, select { height: 50px; padding: 10px; }
+        button, .btn-menu, .btn-agregar-fila { font-size: 16px; padding: 14px 22px; height: 48px; }
+
+        /* En tablet evitar scroll vertical */
+        @media (max-width: 1024px) and (min-width: 481px) {
+            body { overflow-y: hidden; height: 100vh; }
+        }
+
+        /* ============================================= */
+        /* HEADER CON CAMPOS + BOTONES ALINEADOS */
+        /* ============================================= */
+        .app-header { margin-bottom: 12px; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .header-left { display: flex; align-items: center; gap: 8px; }
+        .title { color: var(--color-primary); font-size: 22px; font-weight: 600; white-space: nowrap; }
+        .logo { width: 120px; height: 45px; display: flex; align-items: center; justify-content: center; padding: 2px; }
+        .logo img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; }
+
+        .header-right-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-fields-group { display: flex; gap: 8px; flex-wrap: nowrap; justify-content: flex-end; }
+        .header-buttons-group { display: flex; gap: 12px; }
+
+        /* Estilos de campo de encabezado */
+        .header-field { display: flex; flex-direction: column; }
+        .header-field input {
+            height: 38px;
+            border: 2px solid var(--color-input-border);
+            padding: 2px 8px;
+            font-size: 16px;
+            background: #FAFBFC;
+            border-radius: 3px;
+        }
+
+        /* Anchos exactos de los inputs del header */
+        .input-codigo { width: 150px; }
+        .input-version { width: 150px; }
+        .input-fecha { width: 150px; }
+
+        /* Botones */
+        .btn-menu {
+            padding: 12px 25px;
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-menu:hover { background-color: #163C52; }
+
+        /* Botón Agregar Fila */
+        .btn-agregar-fila {
+            margin-top: 8px;
+            padding: 8px 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-agregar-fila:hover { background-color: #45a049; }
+
+        /* ============================================= */
+        /* RESTO DEL FORMULARIO */
+        /* ============================================= */
+        .card { background: white; box-shadow: 0 2px 6px rgba(31,78,108,0.2); padding: 10px; margin-bottom: 6px; border-radius: 4px; }
+        .section-title { color: var(--color-primary); font-size: 15px; font-weight: 700; margin-bottom: 8px; padding-bottom: 3px; border-bottom: 1px solid var(--color-light-gray); }
+
+.field { display: flex; flex-direction: column; margin-bottom: 8px; }
+.field label, .header-field label { color: var(--color-text-dark); font-size: 14px; margin-bottom: 3px; font-weight: 500; }
+.field input, textarea {
+    height: 46px;
+    border: 2px solid var(--color-input-border);
+    padding: 6px 10px;
+    font-size: 17px;
+    background: #FAFBFC;
+    border-radius: 3px;
+}
+textarea { height: 80px; padding: 8px; width: 100%; max-width: 100%; box-sizing: border-box; font-size: 16px; }        /* Grid */
+        .grid { display: grid; gap: 12px; align-items: flex-start; }
+
+        .grid-12 { grid-template-columns: repeat(12, 1fr); }
+        .col-4 { grid-column: span 4; }
+        .col-6 { grid-column: span 6; }
+
+        /* Tablas */
+        .table-wrapper { overflow-x: auto; overflow-y: visible; width: 100%; }
+        table { width: 100%; border-collapse: collapse; margin: 0; padding: 0; font-size: 14px; }
+        thead { display: table-header-group; }
+        tbody { display: table-row-group; }
+        tr { display: table-row; font-size: 14px; font-weight: 500; }
+        th, td { display: table-cell; padding: 0; border: 1px solid #E8EAED; text-align: center; height: 44px; }
+        thead tr th { 
+            background-color: var(--color-primary); 
+            color: white; 
+            padding: 10px 10px; 
+            font-weight: 700; 
+            text-align: center; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid #E8EAED;
+            font-size: 15px;
+            height: 44px;
+        }
+
+        /* Botones en línea fuera de thead */
+        .inline-buttons {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 4px; /* cercanos pero sin cubrir celdas */
+            padding-top: 6px;
+            border-top: 1px dashed #E8EAED; /* diferencia visual de la fila */
+            background: #F7F9FC; /* leve contraste para separar del grid */
+        }
+
+        .btn-delete {
+            background-color: #ada8a8;  /* Rojo para eliminar */
+        }
+
+.btn-delete:hover {
+    background-color: #ada8a8;  /* Rojo más oscuro al pasar el mouse */
+}
+
+        .analisis-actions { margin-top: 2px; }
+        tbody tr { border: 1px solid #E8EAED; background-color: white; }
+        .table-cell { padding: 0; border: 1px solid #E8EAED; display: flex; align-items: center; justify-content: center; min-height: 44px; }
+        .table-cell input { height: 44px !important; width: 100%; padding: 6px 8px !important; font-size: 16px !important; box-sizing: border-box; border: 2px solid var(--color-input-border); background: white; text-align: center; }
+        
+        /* Contenedor de Análisis (Tabla + Firma) */
+        .analisis-container { display: flex; gap: 12px; }
+        .analisis-main { flex-grow: 1; }
+        .firma-column { width: 120px; flex-shrink: 0; }
+        .table-header { background-color: var(--color-primary); color: white; padding: 6px 8px; font-weight: 700; text-align: center; font-size: 11px; border: 1px solid #E8EAED; }
+        .analisis-firma-container { height: calc(100% - 25px); display: flex; flex-direction: column; }
+        
+        /* Ajuste de estilo para el span del header de la firma */
+        .firma-column .table-header span {
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Firma */
+        .firma-box { display: block; cursor: pointer; flex-grow: 1; position: relative; }
+        .firma-preview-analisis {
+            height: 200px;
+            min-height: 120px;
+            border: 2px dashed var(--color-border);
+            border-radius: 4px;
+            background-color: #FAFBFC;
+            color: #9CA3AF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        .link { color: var(--color-primary); font-weight: 600; }
+        .firma-box-click:hover .firma-preview-analisis {
+            background-color: #F3F4F6;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .file-hidden { display: none; }
+
+
+        /* ------------------------------------------ */
+        /* ADAPTACIÓN CRUCIAL PARA LA TABLA DE 9 COLUMNAS */
+        /* ------------------------------------------ */
+        
+        /* Tu tabla tiene 9 encabezados: Adaptamos el Grid para que funcione bien. 
+           Necesitamos 9 columnas (1 columna fija para Nº Callana y 8 para el resto). */
+        .analisis-9-cols { 
+            grid-template-columns: 100px repeat(8, 1fr); 
+            min-width: 750px; 
+        }
+        
+        /* Aplicar el grid a la estructura de la tabla */
+        table.analisis-14-cols { width: 100%; }
+        table.analisis-14-cols thead tr { 
+            display: grid; 
+            grid-template-columns: 100px repeat(8, 1fr); 
+        }
+        table.analisis-14-cols tbody tr { 
+            display: grid; 
+            grid-template-columns: 100px repeat(8, 1fr); 
+        }
+
+
+        /* Responsive */
+        @media (max-width: 1024px) and (min-width: 769px) and (orientation: landscape) {
+            body { font-size: 15px; }
+            .header-field input { height: 36px; font-size: 15px; }
+            .field input, textarea { height: 36px; font-size: 15px; }
+            th, td { height: 36px; }
+            thead tr th { padding: 7px 9px; font-size: 13px; }
+            .table-cell { min-height: 36px; }
+            .table-cell input { height: 30px; font-size: 13px; }
+            .container { padding: 6px; }
+        }
+
+        @media (max-width: 768px) {
+            body { font-size: 14px; }
+            .grid-12 > div { grid-column: span 12; }
+            .header-content { flex-direction: column; align-items: stretch; }
+            .header-right-buttons { align-items: stretch; }
+            .header-fields-group { justify-content: space-between; }
+            .col-4 { grid-column: span 12; }
+            .header-field input { height: 32px; font-size: 14px; }
+            .field input, textarea { height: 32px; font-size: 14px; }
+            th, td { height: 32px; }
+            thead tr th { padding: 6px 8px; font-size: 12px; }
+            .table-cell { min-height: 32px; }
+            .table-cell input { height: 26px; font-size: 12px; }
+            .analisis-container { flex-direction: column; }
+            .firma-column { width: 100%; margin-top: 12px; }
+            .analisis-firma-container { height: 100px; }
+            
+            /* Ajuste de tabla en móvil: 1 columna y scroll */
+            table.analisis-14-cols thead tr,
+            table.analisis-14-cols tbody tr { 
+                grid-template-columns: repeat(9, minmax(80px, 1fr)); /* Mínimo 80px */
+            }
+        }
+
+/* ============================================= */
+/* Clases extraídas de estilos en línea (Refactor) */
+/* ============================================= */
+
+/* Margen inferior para header de firma */
+.mb-4 {
+    margin-bottom: 4px;
+}
+
+/* Mensaje de bloqueo de firma (inyectado por JS) */
+.mensaje-bloqueo-firma {
+    text-align: center;
+    color: #c62828;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 10px;
+}
+
+/* Animación para mensaje de bienvenida */
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+.welcome-banner {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 9999;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    animation: bounce 1.5s ease-in-out;
+}

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTROL DE COLADAS H. ELÉCTRICO</title>
+    <link rel="stylesheet" href="../css/electrico.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ENCABEZADO -->
+        <div class="card app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo">
+                        <img src="../img/Hidrostal_Logo.png" alt="Hidrostal Logo">
+                    </div>
+                    <h1 class="title">CONTROL DE COLADAS H. ELÉCTRICO</h1>
+                </div>
+                <div class="header-right-buttons">
+                    <div class="header-fields-group">
+                        <div class="header-field">
+                            <label>Código:</label>
+                            <input type="text" class="input-codigo">
+                        </div>
+                        <div class="header-field">
+                            <label>Versión:</label>
+                            <input type="text" class="input-version">
+                        </div>
+                        <div class="header-field">
+                            <label>Fecha:</label>
+                            <input type="date" class="input-fecha">
+                        </div>
+                    </div>
+                    <div class="header-buttons-group">
+                        <button class="btn-menu" onclick="guardarDocumento('electrico', {})">Guardar</button>
+                        <a href="menuDocs.html" class="btn-menu">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS GENERALES -->
+        <div class="card">
+            <h2 class="section-title">DATOS GENERALES</h2>
+            <div class="grid grid-12">
+                <div class="col-4 field"><label>Colada</label><input type="text"></div>
+                <div class="col-4 field"><label>Metal</label><input type="text"></div>
+                <div class="col-4 field"><label>T. Acumulada</label><input type="text"></div>
+                <div class="col-4 field"><label>KW Inicio</label><input type="number"></div>
+                <div class="col-4 field"><label>KW Fin</label><input type="number"></div>
+                <div class="col-4 field"><label>Temperatura Sangrado</label><input type="number"></div>
+                <div class="col-6 field"><label>Nº WO</label><input type="text"></div>
+                <div class="col-6 field"><label>Nº Artículo</label><input type="text"></div>
+            </div>
+        </div>
+
+        <!-- COMPONENTES + ADICIONES -->
+        <div class="grid grid-12">
+            <div class="col-12 card">
+                <h2 class="section-title">COMPONENTES DE LA CARGA</h2>
+                <table class="table-4-cols" id="tabla-componentes">
+                    <thead>
+                        <tr>
+                            <th>Componentes</th>
+                            <th colspan="3">Horno Kg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell-label">
+                                <select class="select-componentes">
+                                    <option value="">-- Seleccionar --</option>
+                                    <option value="LINGOTE">LINGOTE</option>
+                                    <option value="M.LIQUIDO">M.LIQUIDO</option>
+                                    <option value="F.DULCE A-B">F.DULCE A-B</option>
+                                    <option value="F.DULCE LIVIANO">F.DULCE LIVIANO</option>
+                                    <option value="CHATARRA INOX">CHATARRA INOX</option>
+                                    <option value="CHATARRA INOX 18-8">CHATARRA INOX 18-8</option>
+                                    <option value="CHATARRA INOX CROMO">CHATARRA INOX CROMO</option>
+                                    <option value="CHATARRA INOX 316L">CHATARRA INOX 316L</option>
+                                    <option value="RETORNO">RETORNO</option>
+                                </select>
+                            </td>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell"><input type="number"></td>
+                            <td class="table-cell"><input type="number"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="inline-buttons">
+                    <button class="btn-menu" onclick="agregarFilaComponentesElectrico()">+ Agregar fila</button>
+                    <button class="btn-menu btn-delete" onclick="eliminarFilaComponentesElectrico()">- Eliminar fila</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">ANÁLISIS QUÍMICO</h2>
+            <div class="analisis-container">
+                <div class="analisis-main table-wrapper">
+                    <table class="analisis-14-cols" id="tabla-analisis">
+                        <thead>
+                            <tr>
+                                <th>METAL</th>
+                                <th>C</th>
+                                <th>Si</th>
+                                <th>Mn</th>
+                                <th>P</th>
+                                <th>S</th>
+                                <th>Cr</th>
+                                <th>Ni</th>
+                                <th>Mo</th>
+                                <th>Mg</th>
+                                <th>Nb</th>
+                                <th>N</th>
+                                <th>Cu</th>
+                                <th>Al</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td><td class="table-cell"><input type="number" step="0.001"></td></tr>
+                        </tbody>
+                    </table>
+                    <div class="inline-buttons">
+                        <button class="btn-menu" onclick="agregarFilaAnalisisElectrico()">+ Agregar fila</button>
+                        <button class="btn-menu btn-delete" onclick="eliminarFilaAnalisisElectrico()">- Eliminar fila</button>
+                    </div>
+                </div>
+                <div class="firma-column">
+                    <div class="table-header mb-4">
+                        <span>Superv(V°B°)</span>
+                    </div>
+                    <div class="analisis-firma-container">
+                        <label for="firma-supervisor-file" class="firma-box firma-box-click">
+                            <span class="firma-preview-analisis">
+                                <span>Firma</span>
+                                <span>Supervisor</span>
+                                <span class="link">(Subir imagen)</span>
+                            </span>
+                            <input type="file" id="firma-supervisor-file" accept="image/*" class="file-hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">TEMPERATURAS</h2>
+            <div class="grid grid-12">
+                <div class="col-9">
+                    <div class="table-wrapper"> 
+                        <table class="temp-7-cols" id="tabla-temperaturas">
+                            <thead>
+                                <tr>
+                                    <th>Metal</th>
+                                    <th>INO</th> 
+                                    <th>NOD</th>
+                                    <th>CaSi</th>
+                                    <th>Al</th>
+                                    <th>Se</th>
+                                    <th class="th-observaciones">Observaciones</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td><td class="table-cell"><input type="text"></td></tr>
+                            </tbody>
+                        </table>
+                        <div class="inline-buttons">
+                            <button class="btn-menu" onclick="agregarFilaTemperaturasElectrico()">+ Agregar fila</button>
+                            <button class="btn-menu btn-delete" onclick="eliminarFilaTemperaturasElectrico()">- Eliminar fila</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="tiempos-table-bordered">
+                        <div class="tiempos-header">TIEMPOS</div>
+                        <div class="table-row-bordered">
+                            <div class="label-box">FUNSION INICIO</div>
+                            <div class="input-box"><input type="time"></div>
+                        </div>
+                        <div class="table-row-bordered">
+                            <div class="label-box">FUNSION FINAL</div>
+                            <div class="input-box"><input type="time"></div>
+                        </div>
+                        <div class="table-row-bordered">
+                            <div class="label-box">SANGR.INICIO</div>
+                            <div class="input-box"><input type="time"></div>
+                        </div>
+                        <div class="table-row-bordered">
+                            <div class="label-box">SANGR.FINAL</div>
+                            <div class="input-box"><input type="time"></div>
+                        </div>
+                        <div class="table-row-bordered">
+                            <div class="label-box">LINGOTEO (Kg)</div>
+                            <div class="input-box"><input type="number"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="section-title">OBSERVACIONES</h2>
+            <textarea id="observaciones" rows="4" placeholder="Escriba aquí cualquier observación relevante..."></textarea>
+        </div>
+
+        <div class="card">
+            <div class="grid grid-12">
+                <div class="col-6 field">
+                    <label for="firma-hornero-file">Firma del HORNERO</label>
+                    <label for="firma-hornero-file" class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-hornero-file" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+                <div class="col-6 field">
+                    <label for="firma-supervisor-pie-file">Firma del SUPERVISOR</label>
+                    <label for="firma-supervisor-pie-file" class="firma-area firma-box-click">
+                        <span>Área de firma</span>
+                        <input type="file" id="firma-supervisor-pie-file" accept="image/*" class="file-hidden">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+   <script>
+// Script mágico – Bienvenida simple y elegante
+document.addEventListener("DOMContentLoaded", () => {
+
+    // === FECHA AUTOMÁTICA DE HOY ===
+    document.querySelectorAll("input[type='date'], .input-fecha").forEach(input => {
+        if (!input.value) {
+            input.value = new Date().toISOString().split("T")[0];
+        }
+    });
+
+    // === BLOQUEAR FIRMAS DEL SUPERVISOR SI ES HORNERO ===
+    if (localStorage.getItem("rol") === "hornero") {
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            if (input.id.includes("supervisor")) {
+                const caja = input.closest("label") || input.parentElement;
+                caja.style.pointerEvents = "none";
+                caja.style.opacity = "0.4";
+                caja.style.background = "#ffebee";
+                caja.style.border = "2px dashed #c62828";
+                caja.innerHTML = `
+                    <div class="mensaje-bloqueo-firma">
+                        SOLO EL SUPERVISOR<br>PUEDE FIRMAR AQUÍ
+                    </div>
+                `;
+            }
+        });
+    }
+
+    // === MENSAJE DE BIENVENIDA ===
+    const nombre = localStorage.getItem("usuarioLogueado") || "Usuario";
+    const rol = localStorage.getItem("rol");
+    const mensaje = `BIENVENIDO ${nombre}`;
+    const banner = document.createElement("div");
+    banner.textContent = mensaje;
+    banner.className = 'welcome-banner';
+    banner.style.backgroundColor = rol === "supervisor" ? "#d32f2f" : "#ff9800";
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 2000);
+});
+</script>
+
+<!-- SCRIPT DE DOCUMENTOS -->
+<script>
+    // Sistema de usuarios local - definir primero
+    const USUARIOS_PREDEFINIDOS = [
+        {
+            id: 1,
+            username: 'supervisor',
+            password: '123',
+            email: 'supervisor@hidrostal.com',
+            rol: 'supervisor'
+        },
+        {
+            id: 2,
+            username: 'hornero',
+            password: '123',
+            email: 'hornero@hidrostal.com',
+            rol: 'hornero'
+        }
+    ];
+
+    function inicializarUsuarios() {
+        const usuariosGuardados = localStorage.getItem('usuarios-sistema');
+        if (!usuariosGuardados) {
+            localStorage.setItem('usuarios-sistema', JSON.stringify(USUARIOS_PREDEFINIDOS));
+        }
+    }
+
+    function obtenerTodosUsuarios() {
+        inicializarUsuarios();
+        const usuarios = localStorage.getItem('usuarios-sistema');
+        return usuarios ? JSON.parse(usuarios) : USUARIOS_PREDEFINIDOS;
+    }
+
+    function obtenerUsuarioPorUsername(username) {
+        const usuarios = obtenerTodosUsuarios();
+        return usuarios.find(u => u.username.toLowerCase() === username.toLowerCase());
+    }
+
+    function obtenerUsuarioPorId(id) {
+        const usuarios = obtenerTodosUsuarios();
+        return usuarios.find(u => u.id === id);
+    }
+
+    function crearUsuario(username, email, password, rol) {
+        const usuarios = obtenerTodosUsuarios();
+        if (usuarios.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+            throw new Error('Usuario ya existe');
+        }
+        if (usuarios.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+            throw new Error('Email ya existe');
+        }
+        const nuevoUsuario = {
+            id: Math.max(...usuarios.map(u => u.id), 0) + 1,
+            username: username.toLowerCase(),
+            email: email.toLowerCase(),
+            password: password,
+            rol: rol,
+            createdAt: new Date().toISOString()
+        };
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return nuevoUsuario;
+    }
+
+    function cambiarRolUsuario(usuarioId, nuevoRol) {
+        const usuarios = obtenerTodosUsuarios();
+        const usuario = usuarios.find(u => u.id === usuarioId);
+        if (!usuario) throw new Error('Usuario no encontrado');
+        usuario.rol = nuevoRol;
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return usuario;
+    }
+
+    function eliminarUsuario(usuarioId) {
+        const usuarios = obtenerTodosUsuarios();
+        const index = usuarios.findIndex(u => u.id === usuarioId);
+        if (index === -1) throw new Error('Usuario no encontrado');
+        const usuarioEliminado = usuarios[index];
+        usuarios.splice(index, 1);
+        localStorage.setItem('usuarios-sistema', JSON.stringify(usuarios));
+        return usuarioEliminado;
+    }
+
+    inicializarUsuarios();
+</script>
+<script src="../JS/documentos.js"></script>
+<script>
+    inicializarDocumento('electrico');
+
+    // Funciones para agregar filas dinámicamente
+    function agregarFilaComponentesElectrico() {
+        const tabla = document.getElementById('tabla-componentes');
+        const tbody = tabla.querySelector('tbody');
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td class="table-cell-label">
+                <select style="width: 100%; height: 100%; border: none; padding: 4px; font-size: 12px; text-align: center;">
+                    <option value="">-- Seleccionar --</option>
+                    <option value="LINGOTE">LINGOTE</option>
+                    <option value="M.LIQUIDO">M.LIQUIDO</option>
+                    <option value="F.DULCE A-B">F.DULCE A-B</option>
+                    <option value="F.DULCE LIVIANO">F.DULCE LIVIANO</option>
+                    <option value="CHATARRA INOX">CHATARRA INOX</option>
+                    <option value="CHATARRA INOX 18-8">CHATARRA INOX 18-8</option>
+                    <option value="CHATARRA INOX CROMO">CHATARRA INOX CROMO</option>
+                    <option value="CHATARRA INOX 316L">CHATARRA INOX 316L</option>
+                    <option value="RETORNO">RETORNO</option>
+                </select>
+            </td>
+            <td class="table-cell"><input type="number"></td>
+            <td class="table-cell"><input type="number"></td>
+            <td class="table-cell"><input type="number"></td>
+        `;
+        tbody.appendChild(fila);
+    }
+
+    function agregarFilaAdicionesElectrico() {
+        const tabla = document.getElementById('tabla-adiciones');
+        const tbody = tabla.querySelector('tbody');
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td class="table-cell-label"></td>
+            <td class="table-cell"><input type="number"></td>
+            <td class="table-cell"><input type="number"></td>
+            <td class="table-cell"><input type="number"></td>
+        `;
+        tbody.appendChild(fila);
+    }
+
+    function agregarFilaAnalisisElectrico() {
+        const tabla = document.getElementById('tabla-analisis');
+        const tbody = tabla.querySelector('tbody');
+        const fila = document.createElement('tr');
+        let html = '<td class="table-cell"><input type="text"></td>';
+        for (let i = 0; i < 13; i++) {
+            html += '<td class="table-cell"><input type="number" step="0.001"></td>';
+        }
+        fila.innerHTML = html;
+        tbody.appendChild(fila);
+    }
+
+    function agregarFilaTemperaturasElectrico() {
+        const tabla = document.getElementById('tabla-temperaturas');
+        const tbody = tabla.querySelector('tbody');
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+            <td class="table-cell"><input type="text"></td>
+        `;
+        tbody.appendChild(fila);
+    }
+
+    // Funciones para eliminar la última fila
+    function eliminarFilaComponentesElectrico() {
+        const tabla = document.getElementById('tabla-componentes');
+        const tbody = tabla.querySelector('tbody');
+        if (tbody.rows.length > 1) {
+            tbody.deleteRow(tbody.rows.length - 1);
+        }
+    }
+
+    function eliminarFilaAnalisisElectrico() {
+        const tabla = document.getElementById('tabla-analisis');
+        const tbody = tabla.querySelector('tbody');
+        if (tbody.rows.length > 1) {
+            tbody.deleteRow(tbody.rows.length - 1);
+        }
+    }
+
+    function eliminarFilaTemperaturasElectrico() {
+        const tabla = document.getElementById('tabla-temperaturas');
+        const tbody = tabla.querySelector('tbody');
+        if (tbody.rows.length > 1) {
+            tbody.deleteRow(tbody.rows.length - 1);
+        }
+    }
+</script>
+</body>
+</html>
